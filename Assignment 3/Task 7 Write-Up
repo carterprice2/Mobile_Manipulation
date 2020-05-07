@@ -1,0 +1,69 @@
+#Leon Carter Price
+
+#Task 7 write up for Code below
+An instance of the 3 link arm is instantiated. Then the initial joint angles of the arm are declared. The intial forward kinematics are calculated. 
+A goal position is declaired. Then a trajectory is generated between the current location and the goal loacation. 
+The animate function has 3 global variables declared pose, arm, q
+first the forward kinematics are calculated for the joint angles q
+Then the error between the current pose and the current iteration desired trajectory pose is calculated. 
+Then the jacobian of the arm is clculated. 
+Then in line that contains "q += np.dot(np.linalg.inv(J), error)" this multiplies the inverse of the jacobian by the error. So it takes the error in the task space and multiplies it by the inverse jacobian to calculate the error in the joint space. The joint space errors ar then added to the current joint values to move the arm closer to the desired location. 
+
+Then below we define the animation parameters.
+This consists of getting the locations fo the links based on the current joint angles. Use the Poses to define their translational and rotationl motion in the animation.  
+Define the starting pose sXl1, then the movements for the pose from starting to link 2 stL2. Next do the same for the next 2 links and use this for the animation display. 
+
+arm = ThreeLinkArm()
+q = np.radians(vector3(30, -30, 45))
+sTt_initial = arm.fk(q)
+sTt_goal = Pose2(2.4, 4.3, math.radians(0))
+poses = trajectory(sTt_initial, sTt_goal, N)
+
+def init():
+  rect = mpatches.Rectangle([0,0], 1, 1, angle =0)
+  return (rect,)
+
+
+# animation function. This is called sequentially  
+def animate(i):
+  global pose
+  global arm
+  global q
+
+  # Computes the forward kinematics to get the pose of the end-effector for the given angular position of the joints (q)
+  sTt = arm.fk(q)
+  # Evaluate the error between the current position of the end-effector and the desired position at moment i
+  error = delta(sTt, poses[i])
+  # Get the jacobian of the arm at the given pose
+  J = arm.jacobian(q)
+  # Move the arm joints in the respective direction
+  q += np.dot(np.linalg.inv(J), error)
+
+  # ------------------------- ANIMATION ----------------------------------------------------
+  rect = rect = mpatches.Rectangle([-0.5,-0.5], 1, 1, angle =0)
+  ax.clear()
+  ax.set_xlim((-size, size))
+  ax.set_ylim((-size, size))
+  ax.add_artist(rect)
+  
+  sXl1 = Pose2(0, 0, math.radians(90))
+  l1Zl1 = Pose2(0, 0, q[0])
+  l1Xl2 = Pose2(arm.L1, 0, 0)
+  sTl2 = compose(sXl1, l1Zl1, l1Xl2)
+  t1 = sTl2.translation()
+  ax.add_artist(mpatches.Rectangle([0,0], 3.5, 0.1, angle =q[0]*180/np.pi+90, color='r'))
+
+  l2Zl2 = Pose2(0, 0, q[1])
+  l2Xl3 = Pose2(arm.L2, 0, 0)
+  sTl3 = compose(sTl2, l2Zl2, l2Xl3)
+  t2 = sTl3.translation()
+  ax.add_artist(mpatches.Rectangle([t1.x(),t1.y()], 3.5, 0.1, angle =(q[0]+q[1])*180/np.pi+90, color='g'))
+
+  l3Zl3 = Pose2(0, 0, q[2])
+  l3Xt = Pose2(arm.L3, 0, 0)
+  sTt = compose(sTl3, l3Zl3, l3Xt)
+  t3 = sTt.translation()
+  ax.add_artist(mpatches.Rectangle([t2.x(),t2.y()], 2.5, 0.1, angle =(q[0]+q[1]+q[2])*180/np.pi+90, color='b'))
+
+animation.FuncAnimation(fig, animate, init_func=init, 
+                        frames=N, interval=100, blit=False)
