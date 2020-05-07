@@ -1,0 +1,404 @@
+<sdf version='1.7'>
+    <model name='px100'>
+      <link name='/base_link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>-0.033205 0.000892 0.021191 0 -0 1.5708</pose>
+          <mass>0.395887</mass>
+          <inertia>
+            <ixx>0.001065</ixx>
+            <ixy>-1.303e-05</ixy>
+            <ixz>1.8614e-06</ixz>
+            <iyy>0.0003332</iyy>
+            <iyz>4.092e-05</iyz>
+            <izz>0.001208</izz>
+          </inertia>
+        </inertial>
+        <collision name='/base_link_collision'>
+          <pose>0 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-1-Base.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='/base_link_visual'>
+          <pose>0 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-1-Base.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+      <link name='/shoulder_link'>
+        <pose>0 0 0.0508 0 -0 0</pose>
+        <inertial>
+          <pose>1.1e-05 -0.000361 0.02846 0 -0 1.5708</pose>
+          <mass>0.072587</mass>
+          <inertia>
+            <ixx>2.31e-05</ixx>
+            <ixy>3e-10</ixy>
+            <ixz>1.606e-07</ixz>
+            <iyy>2.535e-05</iyy>
+            <iyz>-2.06e-08</iyz>
+            <izz>1.442e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='/shoulder_link_collision'>
+          <pose>0 0 -0.0022 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-2-Shoulder.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='/shoulder_link_visual'>
+          <pose>0 0 -0.0022 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-2-Shoulder.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+      <joint name='waist' type='revolute'>
+        <child>/shoulder_link</child>
+        <parent>/base_link</parent>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-3.14159</lower>
+            <upper>3.14159</upper>
+            <effort>100</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='/upper_arm_link'>
+        <pose>0 0 0.09305 0 -0 0</pose>
+        <inertial>
+          <pose>0.016198 -0.000293 0.087723 0 -0 1.5708</pose>
+          <mass>0.082923</mass>
+          <inertia>
+            <ixx>8.006e-05</ixx>
+            <ixy>-2.144e-07</ixy>
+            <ixz>2.982e-07</ixz>
+            <iyy>7.459e-05</iyy>
+            <iyz>1.657e-05</iyz>
+            <izz>3.685e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='/upper_arm_link_collision'>
+          <pose>0 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-3-UA.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='/upper_arm_link_visual'>
+          <pose>0 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-3-UA.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+      <joint name='shoulder' type='revolute'>
+        <child>/upper_arm_link</child>
+        <parent>/shoulder_link</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.93732</lower>
+            <upper>1.8675</upper>
+            <effort>100</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='/forearm_link'>
+        <pose>0.035 0 0.19305 -3.14159 -0 0</pose>
+        <inertial>
+          <pose>0.077372 -0.000332 0 0 -0 1.5708</pose>
+          <mass>0.073058</mass>
+          <inertia>
+            <ixx>5.338e-05</ixx>
+            <ixy>-3.073e-07</ixy>
+            <ixz>0</ixz>
+            <iyy>1.653e-05</iyy>
+            <iyz>0</iyz>
+            <izz>6.035e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='/forearm_link_collision'>
+          <pose>0 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-4-Forearm.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='/forearm_link_visual'>
+          <pose>0 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-4-Forearm.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+      <joint name='elbow' type='revolute'>
+        <child>/forearm_link</child>
+        <parent>/upper_arm_link</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-1.6057</lower>
+            <upper>2.11185</upper>
+            <effort>100</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='/gripper_link'>
+        <pose>0.135 0 0.19305 -3.14159 -0 0</pose>
+        <inertial>
+          <pose>0.054828 -0 -0.008995 -3.14159 -0 -1.5708</pose>
+          <mass>0.107128</mass>
+          <inertia>
+            <ixx>0.00305386</ixx>
+            <ixy>-4.54306e-10</ixy>
+            <ixz>-5.21925e-10</ixz>
+            <iyy>0.00305006</iyy>
+            <iyz>-5.55815e-06</iyz>
+            <izz>0.00307092</izz>
+          </inertia>
+        </inertial>
+        <collision name='/gripper_link_collision'>
+          <pose>0 0 0 -3.14159 -0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-5-Wrist-Gripper.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <collision name='/gripper_link_fixed_joint_lump__/gripper_bar_link_collision_1'>
+          <pose>0 0 0 3.14159 -0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-7-Gripper-Bar.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='/gripper_link_visual'>
+          <pose>0 0 0 -3.14159 -0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-5-Wrist-Gripper.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <!-- <visual name='/gripper_link_fixed_joint_lump__/gripper_bar_link_visual_1'>
+          <pose>0 0 0 3.14159 -0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-7-Gripper-Bar.stl</uri>
+            </mesh>
+          </geometry>
+        </visual> -->
+      </link>
+      <joint name='wrist_angle' type='revolute'>
+        <child>/gripper_link</child>
+        <parent>/forearm_link</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-2.14675</lower>
+            <upper>1.74533</upper>
+            <effort>100</effort>
+            <velocity>3.14159</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='/gripper_prop_link'>
+        <pose>0.2035 0 0.19305 0 -0 0</pose>
+        <inertial>
+          <pose>0.000846 -2e-06 4.2e-05 0 -0 1.5708</pose>
+          <mass>0.00434</mass>
+          <inertia>
+            <ixx>5.923e-07</ixx>
+            <ixy>0</ixy>
+            <ixz>3.195e-07</ixz>
+            <iyy>1.1156e-06</iyy>
+            <iyz>-4e-10</iyz>
+            <izz>5.743e-07</izz>
+          </inertia>
+        </inertial>
+        <collision name='/gripper_prop_link_collision'>
+          <pose>-0.0685 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-6-Gripper-Prop.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <!-- <visual name='/gripper_prop_link_visual'>
+          <pose>-0.0685 0 0 0 -0 1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-6-Gripper-Prop.stl</uri>
+            </mesh>
+          </geometry>
+        </visual> -->
+      </link>
+      <joint name='gripper' type='revolute'>
+        <child>/gripper_prop_link</child>
+        <parent>/gripper_link</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='/left_finger_link'>
+        <pose>0.221 0 0.19305 0 -0 0</pose>
+        <inertial>
+          <pose>0.013816 0 0 0 -0 -1.5708</pose>
+          <mass>0.016246</mass>
+          <inertia>
+            <ixx>4.731e-06</ixx>
+            <ixy>-4.56e-07</ixy>
+            <ixz>0</ixz>
+            <iyy>1.5506e-06</iyy>
+            <iyz>0</iyz>
+            <izz>3.7467e-06</izz>
+          </inertia>
+        </inertial>
+        <collision name='/left_finger_link_collision'>
+          <pose>0 0.005 0 0 -0 3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-8-Finger.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <!-- <visual name='/left_finger_link_visual'>
+          <pose>0 0.005 0 0 -0 3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-8-Finger.stl</uri>
+            </mesh>
+          </geometry>
+        </visual> -->
+      </link>
+      <joint name='left_finger' type='prismatic'>
+        <child>/left_finger_link</child>
+        <parent>/gripper_link</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>0.015</lower>
+            <upper>0.037</upper>
+            <effort>10</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='/right_finger_link'>
+        <pose>0.221 0 0.19305 0 -0 0</pose>
+        <inertial>
+          <pose>0.013816 0 0 -3.14159 -0 -1.5708</pose>
+          <mass>0.016246</mass>
+          <inertia>
+            <ixx>4.731e-06</ixx>
+            <ixy>4.56e-07</ixy>
+            <ixz>0</ixz>
+            <iyy>1.5506e-06</iyy>
+            <iyz>0</iyz>
+            <izz>3.7467e-06</izz>
+          </inertia>
+        </inertial>
+        <collision name='/right_finger_link_collision'>
+          <pose>0 -0.005 0 3.14159 -0 3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-8-Finger.stl</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <!-- <visual name='/right_finger_link_visual'>
+          <pose>0 -0.005 0 3.14159 -0 3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>0.001 0.001 0.001</scale>
+              <uri>file://px100/meshes_px100/PXA-100-M-8-Finger.stl</uri>
+            </mesh>
+          </geometry>
+        </visual> -->
+      </link>
+      <joint name='right_finger' type='prismatic'>
+        <child>/right_finger_link</child>
+        <parent>/gripper_link</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <limit>
+            <lower>-0.037</lower>
+            <upper>-0.015</upper>
+            <effort>10</effort>
+            <velocity>1</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+    </model>
+  </sdf>
+  

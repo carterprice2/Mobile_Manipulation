@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+      
+    <!-- lighting -->
+    <light type="spot" name="light">
+        <pose>-10 0 0.2 0 0 0</pose>
+        <diffuse>0.8 0.8 0.8 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+        <attenuation>
+          <range>1000</range>
+          <constant>0.9</constant>
+          <linear>0.01</linear>
+          <quadratic>0.001</quadratic>
+        </attenuation>
+        <spot>
+            <inner_angle>1.57</inner_angle>
+            <outer_angle>1.57</outer_angle>
+        </spot>
+        <direction>1 0 0</direction>
+        <cast_shadows>true</cast_shadows>
+      </light>
+
+    <include>
+        <uri>model://px100</uri>
+    </include>
+
+    <include>
+        <pose>0.5 0 0.2 0 -1.57 0</pose>
+        <uri>model://lettuce</uri>
+    </include>
+
+    <include>
+        <pose>0.205 0 0.19305 0 0 0</pose>
+        <uri>model://camera_rpi</uri>
+    </include>
+    
+    <joint name="camera_joint" type="fixed">
+        <child>camera_rpi::link</child>
+        <parent>px100::/gripper_link</parent>
+    </joint>
+
+  </world>
+</sdf>
