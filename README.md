@@ -1,5 +1,7 @@
 # Mobile_Manipulation
 
+Course Website: https://dellaert.github.io/20S-8803MM/
+
 4 assignemnts + Final project
 
 Final Project:
